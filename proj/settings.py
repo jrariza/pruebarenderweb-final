@@ -86,10 +86,10 @@ WSGI_APPLICATION = 'proj.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'postgres',
-        'USER': 'postgres',
-        'PASSWORD': 'postgres',
-        'HOST': 'pgdb',
+        'NAME': 'booksdb_mzdv',
+        'USER': 'booksdb_mzdv_user',
+        'PASSWORD': 'JH6x4ksyTTe1mdvY985f8ZEa5zNdMoKO',
+        'HOST': 'dpg-cgmlq33hp8ua8vqukclg-a.oregon-postgres.render.com',
         'PORT': 5432,
     }
 }
