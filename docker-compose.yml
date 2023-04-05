@@ -1,0 +1,43 @@
+version: '3.4'
+
+services:
+  structfull:
+    image: structfull
+    container_name: structfull
+    build:
+      context: .
+      dockerfile: ./django/Dockerfile
+    command: sh -c 'python3 manage.py migrate && gunicorn --bind 0.0.0.0:8000 proj.wsgi'
+    expose:
+      - 8000
+    depends_on:
+      - pgdb
+      - nginx
+    volumes:
+      - static_files:/home/app/static
+  
+  pgdb:
+    image: postgres
+    container_name: pgdb
+    build:
+      context: .
+      dockerfile: ./postgres/Dockerfile
+    env_file:
+      - ./postgres/enviroment_vars.env
+  
+  nginx:
+    image: nginx 
+    container_name: nginx
+    build:
+      context: .
+      dockerfile: ./nginx/Dockerfile
+    ports:
+      - 8080:8080
+    volumes:
+      - ./nginx/conf.d:/etc/nginx/conf.d/
+      - static_files:/home/app/static
+    env_file:
+      - ./nginx/enviroment_vars.env
+
+volumes:
+  static_files:
